@@ -362,39 +362,34 @@ public:
         bigint sum("");
         long long l1 = value.length();
         long long l2 = b.value.length();
-        long long p1 = 0;
-        long long p2 = 0;
-        long long i=0;
-
-        this->reverse();
-        b.reverse();
+        long long p1 = l1-1;
+        long long p2 = l2-1;
+        long long i = 0;
 
         for(long long i=0; i<((l1<l2)?l1:l2); i++)
         {
-            int nval = value[i]-48 + b.value[i]-48 + carry;
+            int nval = value[p1--]-48 + b.value[p2--]-48 + carry;
             carry = nval/10;
-            sum.value = sum.value + char((nval % 10)+48);
-            p1++ , p2++;
+            sum.value = char((nval % 10)+48) + sum.value;
         }
 
-        while(p1 < l1)
+        while(p1 >= 0)
         {
-            int nval = value[p1++]-48 + carry;
+            int nval = value[p1--]-48 + carry;
             carry = nval/10;
-            sum.value = sum.value + char((nval % 10) + 48);
+            sum.value = char((nval % 10) + 48) + sum.value;
         }
 
-        while(p2 < l2)
+        while(p2 >= 0)
         {
-            int nval = b.value[p2++]-48 + carry;
+            int nval = b.value[p2--]-48 + carry;
             carry = nval/10;
-            sum.value = sum.value + char((nval % 10) + 48);
+            sum.value = char((nval % 10) + 48) + sum.value;
         }
 
         if(carry>0)
-            sum.value = sum.value + char((carry) + 48);
+            sum.value = char((carry) + 48) + sum.value;
 
-        sum.reverse();
         sum.sign = sign;
         sum.value = ltrim(sum.value, '0');
 
@@ -417,13 +412,13 @@ public:
 
         long long l1 = larger.value.length();
         long long l2 = smaller.value.length();
-        larger.reverse();
-        smaller.reverse();
+
+        long long pi = l1-1;
 
         for(long long i=0; i<l2; i++)
         {
-            int v1 = larger.value[i]-48 - borrow;
-            int v2 = smaller.value[i]-48;
+            int v1 = larger.value[pi--]-48 - borrow;
+            int v2 = smaller.value[l2-i-1]-48;
             if(v1 < v2)
             {
                 v1 = v1+10;
@@ -431,7 +426,7 @@ public:
             }
             else
                 borrow = 0;
-            result.value = result.value + char((v1-v2) + 48); 
+            result.value = char((v1-v2) + 48) + result.value; 
         }
 
         for(long long i=l2; i<l1; i++)
@@ -439,13 +434,12 @@ public:
             if(borrow == 1)
             {
                 borrow = 0;
-                result.value = result.value + char(larger.value[i]-1);
+                result.value = char(larger.value[pi--]-1) + result.value;
             }
             else
-                result.value = result.value + larger.value[i];
+                result.value = larger.value[pi--] + result.value;
         }
 
-        result.reverse();
         result.value = ltrim(result.value, '0');
 
         return result;   
