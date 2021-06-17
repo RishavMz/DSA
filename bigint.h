@@ -11,7 +11,8 @@ INITIALIZATION :
 METHODS:
 
     string print()    =>    Returns the value stored in bigint object
-    void reverse()    =>    Reverses the bigint object    
+    void reverse()    =>    Reverses the bigint object 
+    string absolute() =>    Returns the absolute value of bigint object   
 
 =========================================================================
 
@@ -29,6 +30,7 @@ OVERLOADED OPERATORS:
 */
 
 #include<iostream>
+#include "pythoniser.h"
 
 class bigint
 {
@@ -47,15 +49,29 @@ public:
     {
         value = s;
         sign = 1;
+        if(s[0]=='-')
+        {
+            value = value.substr(1);
+            sign = 0;
+        }
     }
     
+    std::string absolute()
+    {
+        return value;
+    }
+
+    // Returns string representing value of bigint
     std::string print()
     {
+        if(value == "")
+            return "0";
         if(sign == 0)
             return "-" + value;
         return value;
     }
 
+    // Reverses the bigint
     void reverse()
     {
         long long l = value.length();
@@ -67,119 +83,281 @@ public:
         }
     }
 
+    // Checks equality between two bigint 
     bool operator == (bigint b)
     {
-        if( value == b.value)
+        if((sign == b.sign)&&( value == b.value))
             return true;
         return false;    
     }
 
+    // Checks if given bigint is larger then another bigint
     bool operator > (bigint b)
     {
-        if(value.length() > b.value.length())
+        if(sign == b.sign)
         {
-            return true;
-        }
-        else if(value.length() < b.value.length())
-        {
-            return false;
+            if(sign == 1)
+            {
+                if(value.length() > b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() < b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] > b.value[i])
+                            return true;
+                        else if(value[i] < b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return false;
+                }
+            }
+            else 
+            {
+                if(value.length() < b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() > b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] < b.value[i])
+                            return true;
+                        else if(value[i] > b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return false;
+                }
+            }
         }
         else
         {
-            long long i = 0;
-            while(i < value.length())
-            {
-                if(value[i] > b.value[i])
-                    return true;
-                else if(value[i] < b.value[i])
-                    return false;
-                else
-                    i++;
-            }
-            return false;
+            if(sign == 0)
+                return false;
+            return true;    
         }
+        
     }
 
+    // Checks is given bigint is smaller than given bigint
     bool operator < (bigint b)
     {
-        if(value.length() < b.value.length())
+        if(sign == b.sign)
         {
-            return true;
-        }
-        else if(value.length() > b.value.length())
-        {
-            return false;
+            if(sign == 1)
+            {
+                if(value.length() < b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() > b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] < b.value[i])
+                            return true;
+                        else if(value[i] > b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return false;
+                }
+            }
+            else 
+            {
+                if(value.length() > b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() < b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] > b.value[i])
+                            return true;
+                        else if(value[i] < b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return false;
+                }
+            }
         }
         else
         {
-            long long i = 0;
-            while(i < value.length())
-            {
-                if(value[i] < b.value[i])
-                    return true;
-                else if(value[i] > b.value[i])
-                    return false;
-                else
-                    i++;
-            }
-            return false;
+            if(sign == 1)
+                return false;
+            return true;    
         }
     }
 
+    // Checks if bigint if greater than or equal to given bigint
     bool operator >= (bigint b)
     {
-        if(value.length() > b.value.length())
+        if(sign == b.sign)
         {
-            return true;
-        }
-        else if(value.length() < b.value.length())
-        {
-            return false;
+            if(sign == 1)
+            {
+                if(value.length() > b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() < b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] > b.value[i])
+                            return true;
+                        else if(value[i] < b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return true;
+                }
+            }
+            else 
+            {
+                if(value.length() < b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() > b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] < b.value[i])
+                            return true;
+                        else if(value[i] > b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return true;
+                }
+            }
         }
         else
         {
-            long long i = 0;
-            while(i < value.length())
-            {
-                if(value[i] > b.value[i])
-                    return true;
-                else if(value[i] < b.value[i])
-                    return false;
-                else
-                    i++;
-            }
-            return true;
+            if(sign == 0)
+                return false;
+            return true;    
         }
+        
     }
 
+    // Checks if bigint is less than or equal to given bigint
     bool operator <= (bigint b)
     {
-        if(value.length() < b.value.length())
+        if(sign == b.sign)
         {
-            return true;
-        }
-        else if(value.length() > b.value.length())
-        {
-            return false;
+            if(sign == 1)
+            {
+                if(value.length() < b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() > b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] < b.value[i])
+                            return true;
+                        else if(value[i] > b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return true;
+                }
+            }
+            else 
+            {
+                if(value.length() > b.value.length())
+                {
+                    return true;
+                }
+                else if(value.length() < b.value.length())
+                {
+                    return false;
+                }
+                else
+                {
+                    long long i = 0;
+                    while(i < value.length())
+                    {
+                        if(value[i] > b.value[i])
+                            return true;
+                        else if(value[i] < b.value[i])
+                            return false;
+                        else
+                            i++;
+                    }
+                    return true;
+                }
+            }
         }
         else
         {
-            long long i = 0;
-            while(i < value.length())
-            {
-                if(value[i] < b.value[i])
-                    return true;
-                else if(value[i] > b.value[i])
-                    return false;
-                else
-                    i++;
-            }
-            return true;
+            if(sign == 1)
+                return false;
+            return true;    
         }
     }
 
+    // Returns the sum of two bigint
     bigint operator + (bigint b)
     {
+        if(sign != b.sign)
+        {
+            if(sign == 0)
+                return b - *this;
+            return *this - b;   
+        }
         int carry = 0;
         bigint sum("");
         long long l1 = value.length();
@@ -217,10 +395,13 @@ public:
             sum.value = sum.value + char((carry) + 48);
 
         sum.reverse();
+        sum.sign = sign;
+        sum.value = ltrim(sum.value, '0');
 
         return sum;
     }
 
+    // Returns the diference of two bigint
     bigint operator - (bigint b)
     {
         bigint larger, smaller, result;
@@ -265,6 +446,7 @@ public:
         }
 
         result.reverse();
+        result.value = ltrim(result.value, '0');
 
         return result;   
     }

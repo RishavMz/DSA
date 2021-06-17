@@ -28,6 +28,7 @@ std::vector<T> distinct(std::vector<T> v)
 #include<vector>
 #include<set>
 
+// Removes selected character occurances from the left of the string
 std::string ltrim(std::string s , char c=' ')
 {
     long long i=0;
@@ -41,6 +42,7 @@ std::string ltrim(std::string s , char c=' ')
     return s.substr(i);
 }
 
+// Removes selected character occurances from the right of the string
 std::string rtrim(std::string s, char c=' ')
 {
     std::string s1;
@@ -55,11 +57,13 @@ std::string rtrim(std::string s, char c=' ')
     return s.substr(0,i+1);
 }
 
+// Removes selected character occurances from the left and right of the string
 std::string trim(std::string s, char c=' ')
 {
     return ltrim(rtrim(s,c),c);
 }
 
+// Implemented the missing split function for C++ to split a string based on a specified character into array of strings 
 std::vector<std::string> split(std::string s, char c=' ')
 {
     std::vector<std::string>parts;
@@ -85,6 +89,7 @@ std::vector<std::string> split(std::string s, char c=' ')
     return parts;
 }
 
+// Removing duplicates from a given vector
 template < typename T >
 std::vector<T> distinct(std::vector<T> v)
 {
