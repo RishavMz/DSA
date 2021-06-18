@@ -25,6 +25,7 @@ OVERLOADED OPERATORS:
     >=        =>    Checks if the given bigint value is greater than another bigint value
     +         =>    Addition of two bigint objects
     -         =>    Subtraction of two bigint objects
+    *         =>    Multiplication of two bigint objects
 
 =========================================================================
 */
@@ -443,5 +444,42 @@ public:
         result.value = ltrim(result.value, '0');
 
         return result;   
+    }
+
+    // Returns the product of two bigint
+    bigint operator * (bigint b)
+    {
+        long long l1 = value.length();
+        long long l2 = b.value.length();
+        bigint result("0");
+        int carry = 0;
+
+        for(long long i= 0; i<l1 ; i++)
+        {
+            bigint temp;
+            for(long long j= l2-1 ; j>=0 ; j--)
+            {
+                int v1 = value[l1 - i-1] -48;
+                int v2 = b.value[j] -48;
+                int product = (v1 * v2) + carry;
+                carry = product / 10;
+                temp.value = char((product % 10) + 48) + temp.value ;
+            }
+            if(carry > 0)
+                temp.value = char(carry + 48) + temp.value ;
+            for(long long ik=0; ik<i; ik++)
+                temp.value = temp.value + '0';  
+            result = result + temp;
+            carry = 0;
+        }
+
+        if(sign == b.sign)
+            result.sign = 1;
+
+        else
+            result.sign = 0;
+            
+        return result;
+
     }
 };
