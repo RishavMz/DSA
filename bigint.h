@@ -87,7 +87,10 @@ public:
     // Checks equality between two bigint 
     bool operator == (bigint b)
     {
-        if((sign == b.sign)&&( value == b.value))
+        bigint aa,ab;
+        aa.value = ltrim(value,'0');
+        ab.value = ltrim(b.value,'0');
+        if((aa.sign == ab.sign)&&( aa.value == ab.value))
             return true;
         return false;    
     }
@@ -95,26 +98,29 @@ public:
     // Checks if given bigint is larger then another bigint
     bool operator > (bigint b)
     {
-        if(sign == b.sign)
+        bigint aa,ab;
+        aa.value = ltrim(value,'0');
+        ab.value = ltrim(b.value,'0');
+        if(aa.sign == ab.sign)
         {
-            if(sign == 1)
+            if(aa.sign == 1)
             {
-                if(value.length() > b.value.length())
+                if(aa.value.length() > ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() < b.value.length())
+                else if(aa.value.length() < ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] > b.value[i])
+                        if(aa.value[i] > ab.value[i])
                             return true;
-                        else if(value[i] < b.value[i])
+                        else if(aa.value[i] < ab.value[i])
                             return false;
                         else
                             i++;
@@ -124,22 +130,22 @@ public:
             }
             else 
             {
-                if(value.length() < b.value.length())
+                if(aa.value.length() < ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() > b.value.length())
+                else if(aa.value.length() > ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] < b.value[i])
+                        if(aa.value[i] < ab.value[i])
                             return true;
-                        else if(value[i] > b.value[i])
+                        else if(aa.value[i] > ab.value[i])
                             return false;
                         else
                             i++;
@@ -150,7 +156,7 @@ public:
         }
         else
         {
-            if(sign == 0)
+            if(aa.sign == 0)
                 return false;
             return true;    
         }
@@ -160,26 +166,29 @@ public:
     // Checks is given bigint is smaller than given bigint
     bool operator < (bigint b)
     {
-        if(sign == b.sign)
+        bigint aa,ab;
+        aa.value = ltrim(value,'0');
+        ab.value = ltrim(b.value,'0');
+        if(aa.sign == ab.sign)
         {
-            if(sign == 1)
+            if(aa.sign == 1)
             {
-                if(value.length() < b.value.length())
+                if(aa.value.length() < ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() > b.value.length())
+                else if(aa.value.length() > ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] < b.value[i])
+                        if(aa.value[i] < ab.value[i])
                             return true;
-                        else if(value[i] > b.value[i])
+                        else if(aa.value[i] > ab.value[i])
                             return false;
                         else
                             i++;
@@ -189,22 +198,22 @@ public:
             }
             else 
             {
-                if(value.length() > b.value.length())
+                if(aa.value.length() > ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() < b.value.length())
+                else if(aa.value.length() < ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] > b.value[i])
+                        if(aa.value[i] > ab.value[i])
                             return true;
-                        else if(value[i] < b.value[i])
+                        else if(aa.value[i] < ab.value[i])
                             return false;
                         else
                             i++;
@@ -215,35 +224,38 @@ public:
         }
         else
         {
-            if(sign == 1)
+            if(aa.sign == 1)
                 return false;
             return true;    
         }
     }
 
     // Checks if bigint if greater than or equal to given bigint
-    bool operator >= (bigint b)
+        bool operator >= (bigint b)
     {
-        if(sign == b.sign)
+        bigint aa,ab;
+        aa.value = ltrim(value,'0');
+        ab.value = ltrim(b.value,'0');
+        if(aa.sign == ab.sign)
         {
-            if(sign == 1)
+            if(aa.sign == 1)
             {
-                if(value.length() > b.value.length())
+                if(aa.value.length() > ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() < b.value.length())
+                else if(aa.value.length() < ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] > b.value[i])
+                        if(aa.value[i] > ab.value[i])
                             return true;
-                        else if(value[i] < b.value[i])
+                        else if(aa.value[i] < ab.value[i])
                             return false;
                         else
                             i++;
@@ -253,22 +265,22 @@ public:
             }
             else 
             {
-                if(value.length() < b.value.length())
+                if(aa.value.length() < ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() > b.value.length())
+                else if(aa.value.length() > ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] < b.value[i])
+                        if(aa.value[i] < ab.value[i])
                             return true;
-                        else if(value[i] > b.value[i])
+                        else if(aa.value[i] > ab.value[i])
                             return false;
                         else
                             i++;
@@ -279,36 +291,39 @@ public:
         }
         else
         {
-            if(sign == 0)
+            if(aa.sign == 0)
                 return false;
             return true;    
         }
         
     }
 
-    // Checks if bigint is less than or equal to given bigint
+    // Checks is given bigint is smaller than or equal to given bigint
     bool operator <= (bigint b)
     {
-        if(sign == b.sign)
+        bigint aa,ab;
+        aa.value = ltrim(value,'0');
+        ab.value = ltrim(b.value,'0');
+        if(aa.sign == ab.sign)
         {
-            if(sign == 1)
+            if(aa.sign == 1)
             {
-                if(value.length() < b.value.length())
+                if(aa.value.length() < ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() > b.value.length())
+                else if(aa.value.length() > ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] < b.value[i])
+                        if(aa.value[i] < ab.value[i])
                             return true;
-                        else if(value[i] > b.value[i])
+                        else if(aa.value[i] > ab.value[i])
                             return false;
                         else
                             i++;
@@ -318,22 +333,22 @@ public:
             }
             else 
             {
-                if(value.length() > b.value.length())
+                if(aa.value.length() > ab.value.length())
                 {
                     return true;
                 }
-                else if(value.length() < b.value.length())
+                else if(aa.value.length() < ab.value.length())
                 {
                     return false;
                 }
                 else
                 {
                     long long i = 0;
-                    while(i < value.length())
+                    while(i < aa.value.length())
                     {
-                        if(value[i] > b.value[i])
+                        if(aa.value[i] > ab.value[i])
                             return true;
-                        else if(value[i] < b.value[i])
+                        else if(aa.value[i] < ab.value[i])
                             return false;
                         else
                             i++;
@@ -344,15 +359,16 @@ public:
         }
         else
         {
-            if(sign == 1)
+            if(aa.sign == 1)
                 return false;
             return true;    
         }
     }
-
     // Returns the sum of two bigint
     bigint operator + (bigint b)
     {
+        value = ltrim(value,'0');
+        b.value = ltrim(b.value,'0');
         if(sign != b.sign)
         {
             if(sign == 0)
@@ -400,6 +416,8 @@ public:
     // Returns the diference of two bigint
     bigint operator - (bigint b)
     {
+        value = ltrim(value,'0');
+        b.value = ltrim(b.value,'0');
         bigint larger, smaller, result;
         int borrow = 0;
         larger = *this;
@@ -449,6 +467,8 @@ public:
     // Returns the product of two bigint
     bigint operator * (bigint b)
     {
+        value = ltrim(value,'0');
+        b.value = ltrim(b.value,'0');
         long long l1 = value.length();
         long long l2 = b.value.length();
         bigint result("0");
@@ -482,4 +502,70 @@ public:
         return result;
 
     }
+
+    // Returns the result of division of two bigint
+    bigint operator / (bigint b)
+    {
+        value = ltrim(value,'0');
+        b.value = ltrim(b.value,'0');
+        bigint quotient;
+        bigint temp;
+        long long ptr = 0;
+        long long l1 = value.length();
+        long long l2 = b.value.length();
+        std::vector<bigint> products;
+        for(int i=0; i<9; i++)
+        {
+            bigint t;
+            t.value = (i+48);
+            products.push_back(b * t);
+        }
+        bool zeroadd = false;
+        while(ptr < l1)
+        {
+            //std::cout<<"TEMP: "<<temp.value<<"  PTR:"<<ptr<<std::endl;
+            if(temp < b)
+            {
+                if(zeroadd)
+                    quotient.value = quotient.value + "0";
+                temp.value = temp.value + value[ptr];
+                zeroadd = true;        
+            }
+            if(temp>=b)
+            {
+                int ptr1 = 0;
+                for(int i=8; i>=1; i--)
+                {
+                if(products[i] <= temp)
+                    {
+                        ptr1 = i;
+                        break;
+                    }
+                }
+                std::cout<<"Check "<<temp.value<<" "<<products[ptr].value<<" "<<std::endl; 
+                temp = temp - products[ptr1] ;
+                quotient.value = quotient.value + char(ptr1+48);
+                zeroadd = false;
+            }
+            std::cout<<"Data "<<temp.value<<"  "<<quotient.value<<std::endl;
+            ptr++;
+        } 
+        quotient.value = ltrim(quotient.value, '0');
+        return quotient;
+    }
+
+    // Returns the result of modulo operation on two bigint
+    bigint operator % (bigint b)
+    {
+        bigint remainder;
+        return remainder;
+    }
+
+    // Returns the result of one bigint reised to power of another 
+    bigint pow(bigint b)
+    {
+        bigint power;
+        return power;
+    }
+
 };
