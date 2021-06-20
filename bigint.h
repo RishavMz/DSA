@@ -523,7 +523,6 @@ public:
         bool zeroadd = false;
         while(ptr < l1)
         {
-            //std::cout<<"TEMP: "<<temp.value<<"  PTR:"<<ptr<<std::endl;
             if(temp < b)
             {
                 if(zeroadd)
@@ -542,12 +541,10 @@ public:
                         break;
                     }
                 }
-                std::cout<<"Check "<<temp.value<<" "<<products[ptr].value<<" "<<std::endl; 
                 temp = temp - products[ptr1] ;
                 quotient.value = quotient.value + char(ptr1+48);
                 zeroadd = false;
             }
-            std::cout<<"Data "<<temp.value<<"  "<<quotient.value<<std::endl;
             ptr++;
         } 
         quotient.value = ltrim(quotient.value, '0');
@@ -557,8 +554,48 @@ public:
     // Returns the result of modulo operation on two bigint
     bigint operator % (bigint b)
     {
-        bigint remainder;
-        return remainder;
+        value = ltrim(value,'0');
+        b.value = ltrim(b.value,'0');
+        bigint quotient;
+        bigint temp;
+        long long ptr = 0;
+        long long l1 = value.length();
+        long long l2 = b.value.length();
+        std::vector<bigint> products;
+        for(int i=0; i<9; i++)
+        {
+            bigint t;
+            t.value = (i+48);
+            products.push_back(b * t);
+        }
+        bool zeroadd = false;
+        while(ptr < l1)
+        {
+            if(temp < b)
+            {
+                if(zeroadd)
+                    quotient.value = quotient.value + "0";
+                temp.value = temp.value + value[ptr];
+                zeroadd = true;        
+            }
+            if(temp>=b)
+            {
+                int ptr1 = 0;
+                for(int i=8; i>=1; i--)
+                {
+                if(products[i] <= temp)
+                    {
+                        ptr1 = i;
+                        break;
+                    }
+                }
+                temp = temp - products[ptr1] ;
+                quotient.value = quotient.value + char(ptr1+48);
+                zeroadd = false;
+            }
+            ptr++;
+        } 
+        return temp;
     }
 
     // Returns the result of one bigint reised to power of another 
