@@ -1,34 +1,3 @@
-/*
-========================================================================
-
-INITIALIZATION :
-
-    string s = "12345";
-    bigint b(s);
-
-=========================================================================
-
-METHODS:
-
-    string print()    =>    Returns the value stored in bigint object
-    void reverse()    =>    Reverses the bigint object 
-    string absolute() =>    Returns the absolute value of bigint object   
-
-=========================================================================
-
-OVERLOADED OPERATORS:
-
-    ==        =>    Compares equality of two bigint objects
-    <         =>    Checks if the given bigint value is less than another bigint value
-    >         =>    Checks if the given bigint value is greater than or equal to another bigint value
-    <=        =>    Checks if the given bigint value is less than or equal to another bigint value
-    >=        =>    Checks if the given bigint value is greater than another bigint value
-    +         =>    Addition of two bigint objects
-    -         =>    Subtraction of two bigint objects
-    *         =>    Multiplication of two bigint objects
-
-=========================================================================
-*/
 
 #include<iostream>
 #include "pythoniser.h"
@@ -393,7 +362,7 @@ public:
         *this = *this - temp;
         return temp;
     }
-    
+
     // Returns the sum of two bigint
     bigint operator + (bigint b)
     {
@@ -555,7 +524,7 @@ public:
         {
             if(temp < b)
             {
-                if(zeroadd)
+                if(zeroadd || (temp.value == ""))
                     quotient.value = quotient.value + "0";
                 temp.value = temp.value + value[ptr];
                 zeroadd = true;        
@@ -603,7 +572,7 @@ public:
         {
             if(temp < b)
             {
-                if(zeroadd)
+                if(zeroadd || (temp.value == ""))
                     quotient.value = quotient.value + "0";
                 temp.value = temp.value + value[ptr];
                 zeroadd = true;        
@@ -625,6 +594,9 @@ public:
             }
             ptr++;
         } 
+        temp.value = ltrim(temp.value, '0');
+        if(temp.value=="")
+            temp.value="0";
         return temp;
     }
 
