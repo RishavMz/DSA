@@ -364,6 +364,36 @@ public:
             return true;    
         }
     }
+
+    bigint operator++()
+    {
+        bigint temp;
+        temp.value = "1";
+        *this = *this + temp;
+        return temp;
+    }
+    bigint operator++(int)
+    {
+        bigint temp;
+        temp.value = "1";
+        *this = *this + temp;
+        return temp;
+    }
+    bigint operator--()
+    {
+        bigint temp;
+        temp.value = "1";
+        *this = *this - temp;
+        return temp;
+    }
+    bigint operator--(int)
+    {
+        bigint temp;
+        temp.value = "1";
+        *this = *this - temp;
+        return temp;
+    }
+    
     // Returns the sum of two bigint
     bigint operator + (bigint b)
     {
@@ -602,6 +632,19 @@ public:
     bigint pow(bigint b)
     {
         bigint power;
+        power.value = this->value;
+        if(b.value=="0")
+            power.value="0";
+        else
+        {
+            bigint temp;
+            temp.value="1";
+            while(temp < b)
+            {
+                power = power * (*this);
+                temp++;
+            }
+        }    
         return power;
     }
 
