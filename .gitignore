@@ -1,8 +1,8 @@
-input.txt
+CPP/input.txt
+CPP/output.txt
+CPP/test.cpp
+CPP/a.exe
+CPP/a.out
 
-output.txt
-
-test.cpp
-
-a.exe
-a.out
+JAVA/*.class
+JAVA/stack.java
