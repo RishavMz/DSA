@@ -94,7 +94,27 @@ int position(int n, int m, int k)
 
 //  8 ->    UNSOLVED
 
-//  9 ->    UNSOLVED
+//  9 ->    Find minimum number corresponding to given ID pattern
+//  https://practice.geeksforgeeks.org/problems/number-following-a-pattern3126/1
+string printMinNumberForPattern(string S)
+{
+    vector<int>v;
+    int n = S.length();
+    for(int i=1; i<=n+1; i++)
+        v.push_back(i);
+    for(int i=0; i<n+1; i++)
+    {
+        for(int j=1; j<n+1; j++)
+        {
+            if(S[j-1]=='I' && v[j-1]>v[j])    swap(v[j],v[j-1]);
+            if(S[j-1]=='D' && v[j-1]<v[j])    swap(v[j],v[j-1]);
+        }
+    }
+    S.push_back('0');
+    for(int i=0; i<v.size(); i++)
+        S[i]=(char(v[i]+48));
+    return S;
+}
 
 //  10 ->   Find max 10 numbers in a list having 10M entries
 vector<long long> max10(vector<long long> v)
