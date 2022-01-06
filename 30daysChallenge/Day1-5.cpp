@@ -83,7 +83,32 @@ unsigned long long getNthUglyNo(int n)
     return *s.begin();
 }
 
-//  6 ->    UNSOLVED
+//  6 ->    HCF of two given strings
+//  https://leetcode.com/problems/greatest-common-divisor-of-strings/submissions/
+string gcdOfStrings(string str1, string str2) {
+    int l = gcd(str1.length(), str2.length());
+    string s1 = str1.substr(0,l);
+    string s2 = str2.substr(0,l);
+    if(s1==s2)
+    {
+        int pos = 1;
+        for(int i=0; i<str1.length(); i++)
+            if(str1[i] != s1[i%s1.length()])
+            {   
+                pos=0;
+                break;
+            }
+        for(int i=0; i<str2.length(); i++)
+            if(str2[i] != s2[i%s2.length()])
+            {
+                pos=0;
+                break;
+            }
+        if(pos==1)
+            return s1;
+    }
+    return "";
+}
 
 //  7 ->    Distributing M items in a circle of size N starting from K-th position
 //  https://www.geeksforgeeks.org/distributing-m-items-circle-size-n-starting-k-th-position/
@@ -150,7 +175,18 @@ int *findTwoElement(int *arr, int n)
     return ptr;
 }
 
-//  12 ->    UNSOLVED
+//  12 ->    Squares in N*N Chessboard
+//  https://practice.geeksforgeeks.org/problems/squares-in-nn-chessboard1801/1
+long long squaresInChessBoard(long long N) 
+{
+    long long val=0;
+    while(N>0)
+    {
+        val += N*N;
+        N--;
+    }
+    return val;
+}
 
 //  13 ->    UNSOLVED
 
@@ -187,4 +223,30 @@ int minSubArrayLen(int target, vector<int>& nums)
         pos++;
     }
     return pos==0?0:max;
+}
+
+//  15 ->   Array pair sum divisiblity problem
+//  https://practice.geeksforgeeks.org/problems/array-pair-sum-divisibility-problem3257/1#
+bool canPair(vector<int> nums, int k) 
+{
+    if(nums.size()%2==1)    return false;
+    unordered_map<int,int>mp;
+    for(int i=0; i<k; i++)
+    {
+        mp[i%k]=0;
+    }
+    for(auto i: nums)
+        mp[i%k]++;
+    int count = 0;
+    for(int i=1; i<k; i++)
+    {
+        int v1 = i%k;
+        int v2 = (k-v1);
+        if(v1 == v2)
+            count += mp[v1]%2==0?mp[v1]:mp[v1]-1;
+        else 
+            count += min(mp[v2], mp[v1]);
+    }
+    count += mp[0];
+    return count == nums.size();
 }
