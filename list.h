@@ -7,6 +7,14 @@ public:
     T data;
     Node<T> *next;
 };
+template <typename T>
+class DNode
+{
+public:
+    T data;
+    DNode<T> *next;
+    DNode<T> *prev;
+};
 
 template <typename T>
 class list
@@ -142,6 +150,143 @@ public:
     {
         stream << "[ ";
         Node<T> *temp = l.head;
+        while (temp != NULL && temp->next != NULL)
+        {
+            stream << std::to_string(temp->data) << ", ";
+            temp = temp->next;
+        }
+        if (temp != NULL)
+            stream << std::to_string(temp->data);
+        stream << " ]";
+        return stream;
+    }
+};
+
+template <typename T>
+class dlist
+{
+public:
+    DNode<T> *head;
+    DNode<T> *tail;
+    int length;
+
+    dlist<T>() : head(NULL), tail(NULL), length(0) {}
+
+    void insertFront(T data)
+    {
+        DNode<T> *newNode = new DNode<T>();
+        newNode->data = data;
+        if (head == NULL && tail == NULL)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+        length++;
+    }
+
+    void insertBack(T data)
+    {
+        DNode<T> *newNode = new DNode<T>();
+        newNode->data = data;
+        if (tail == NULL && head == NULL)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        length++;
+    }
+
+    T front() const
+    {
+        return head ? head->val : NULL;
+    }
+
+    T back() const
+    {
+        return tail ? tail->val : NULL;
+    }
+
+    void deleteFront()
+    {
+        if (head != NULL)
+        {
+            DNode<T> *temp = head;
+            if (head->next == NULL)
+            {
+                delete head;
+                head = NULL;
+                tail = NULL;
+            }
+            else
+            {
+                DNode<T> *temp = head;
+                head = head->next;
+                head->prev = NULL;
+                temp->next = NULL;
+                delete temp;
+            }
+            length--;
+        }
+    }
+
+    void deleteBack()
+    {
+        if (tail != NULL)
+        {
+            if (tail->prev == NULL)
+            {
+                delete tail;
+                head = NULL;
+                tail = NULL;
+            }
+            else
+            {
+                DNode<T> *temp = tail;
+                tail = tail->prev;
+                tail->next = NULL;
+                temp->prev = NULL;
+                delete temp;
+            }
+            length--;
+        }
+    }
+
+    void reverse()
+    {
+        DNode<T> *temp = head;
+        while (temp != NULL)
+        {
+            DNode<T> *ptr = temp->next;
+            temp->next = temp->prev;
+            temp->prev = ptr;
+            temp = temp->prev;
+        }
+        temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    int size() const
+    {
+        return length;
+    }
+
+    friend std::ostream &operator<<(std::ostream &stream, const dlist &l)
+    {
+        stream << "[ ";
+        DNode<T> *temp = l.head;
         while (temp != NULL && temp->next != NULL)
         {
             stream << std::to_string(temp->data) << ", ";
