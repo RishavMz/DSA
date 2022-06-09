@@ -2,12 +2,14 @@
 
 - [x] vector
 - [x] singly linked list
-- [ ] doubly linked list
-- [ ] stack
+- [x] doubly linked list
+- [x] stack
 - [ ] queue
 - [ ] deque
 - [ ] hashset
 - [ ] hashmap
+- [ ] Max heap
+- [ ] Min heap
 - [ ] set
 - [ ] map
 - [ ] union

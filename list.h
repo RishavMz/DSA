@@ -1,4 +1,11 @@
+#ifndef INCLUDED_IOSTREAM
+#define INCLUDED_IOSTREAM "Included Iosteam"
 #include <iostream>
+#endif
+
+#ifndef INCLUDED_LIST
+#define INCLUDED_LIST "Included list.h"
+#endif
 
 template <typename T>
 class Node
@@ -7,6 +14,7 @@ public:
     T data;
     Node<T> *next;
 };
+
 template <typename T>
 class DNode
 {
@@ -62,12 +70,12 @@ public:
 
     T front() const
     {
-        return head ? head->val : NULL;
+        return head ? head->data : NULL;
     }
 
     T back() const
     {
-        return tail ? tail->val : NULL;
+        return tail ? tail->data : NULL;
     }
 
     void deleteFront()
@@ -81,6 +89,11 @@ public:
             if (head == NULL)
                 tail = NULL;
             length--;
+        }
+        else
+        {
+            std::cout << "ERROR : Cannot delete from an empty list" << std::endl;
+            exit(0);
         }
     }
 
@@ -105,6 +118,11 @@ public:
                 delete temp;
             }
             length--;
+        }
+        else
+        {
+            std::cout << "ERROR : Cannot delete from an empty list" << std::endl;
+            exit(0);
         }
     }
 
@@ -210,12 +228,12 @@ public:
 
     T front() const
     {
-        return head ? head->val : NULL;
+        return head ? head->data : NULL;
     }
 
     T back() const
     {
-        return tail ? tail->val : NULL;
+        return tail ? tail->data : NULL;
     }
 
     void deleteFront()
@@ -239,6 +257,11 @@ public:
             }
             length--;
         }
+        else
+        {
+            std::cout << "ERROR : Cannot delete from an empty list" << std::endl;
+            exit(0);
+        }
     }
 
     void deleteBack()
@@ -260,6 +283,11 @@ public:
                 delete temp;
             }
             length--;
+        }
+        else
+        {
+            std::cout << "ERROR : Cannot delete from an empty list" << std::endl;
+            exit(0);
         }
     }
 

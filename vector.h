@@ -1,4 +1,11 @@
+#ifndef INCLUDED_IOSTREAM
+#define INCLUDED_IOSTREAM "Included Iosteam"
 #include <iostream>
+#endif
+
+#ifndef INCLUDED_VECTOR
+#define INCLUDED_VECTOR "Included vector.h"
+#endif
 
 template <typename T>
 class vector
@@ -57,7 +64,10 @@ public:
             size--;
         }
         else
+        {
             std::cout<<"ERROR : Given index exceeds current size of vector"<<std::endl;
+            exit(0);
+        }
     }
 
     void reverse()
