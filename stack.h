@@ -8,6 +8,13 @@
 #include "list.h"
 #endif
 
+#ifndef HASHER
+#define A 54059 /* a prime */
+#define B 76963 /* another prime */
+#define C 86969 /* yet another prime */
+#define HASHER 37
+#endif
+
 template <typename T>
 class stack
 {
@@ -53,28 +60,59 @@ public:
         return length;
     }
 
-    friend std::ostream &operator << (std::ostream &stream, stack &s)
+    unsigned int hash()
     {
+        std::string temp;
         stack<T> st;
-        stream<<"Top => [ ";
-        while(s.length>1)
+        temp += "[ ";
+        while (s.length > 1)
         {
-            stream<<s.top()<<" | ";
+            temp += s.top() + " | ";
             st.push(s.top());
             s.pop();
         }
-        if(s.length)
+        if (s.length)
         {
-            stream<<s.top();
+            temp += s.top();
             st.push(s.top());
             s.pop();
         }
-        while(st.length)
+        while (st.length)
         {
             s.push(st.top());
             st.pop();
         }
-        stream<<" ]";
+        temp += " ]";
+        unsigned int hashed = HASHER;
+        for (int i = 0; i < temp.size(); i++)
+        {
+            hashed = (hashed * A) ^ (temp[0] * B);
+        }
+        return hashed;
+    }
+
+    friend std::ostream &operator<<(std::ostream &stream, stack &s)
+    {
+        stack<T> st;
+        stream << "Top => [ ";
+        while (s.length > 1)
+        {
+            stream << s.top() << " | ";
+            st.push(s.top());
+            s.pop();
+        }
+        if (s.length)
+        {
+            stream << s.top();
+            st.push(s.top());
+            s.pop();
+        }
+        while (st.length)
+        {
+            s.push(st.top());
+            st.pop();
+        }
+        stream << " ]";
         return stream;
     }
 };

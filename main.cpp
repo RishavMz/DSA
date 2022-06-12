@@ -1,14 +1,18 @@
 #include <iostream>
-#include "stack.h"
+#include "queue.h"
 using namespace std;
 int main()
 {
-    
-    stack<string>s;
-    s.push("ABC");
-    cout<<s<<endl;
-    s.push("DEF");
-    cout<<s<<endl;
+
+    queue<string> q;
+    q.push("ABC");
+    cout << q << " " << q.hash() << endl;
+    q.push("DEF");
+    cout << q << " " << q.hash() << endl;
+    q.pop();
+    cout << q << " " << q.hash() << endl;
+    q.pop();
+    cout << q << " " << q.hash() << endl;
 
     return 0;
 }

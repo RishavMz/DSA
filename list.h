@@ -7,6 +7,13 @@
 #define INCLUDED_LIST "Included list.h"
 #endif
 
+#ifndef HASHER
+#define A 54059 /* a prime */
+#define B 76963 /* another prime */
+#define C 86969 /* yet another prime */
+#define HASHER 37
+#endif
+
 template <typename T>
 class Node
 {
@@ -163,7 +170,26 @@ public:
     {
         return length;
     }
-
+    unsigned int hash()
+    {
+        std::string tempv;
+        tempv += "[ ";
+        Node<T> *temp = head;
+        while (temp != NULL && temp->next != NULL)
+        {
+            tempv += std::to_string(temp->data) + ", ";
+            temp = temp->next;
+        }
+        if (temp != NULL)
+            tempv += std::to_string(temp->data);
+        tempv += " ]";
+        unsigned int hashed = HASHER;
+        for (int i = 0; i < tempv.size(); i++)
+        {
+            hashed = (hashed * A) ^ (tempv[0] * B);
+        }
+        return hashed;
+    }
     friend std::ostream &operator<<(std::ostream &stream, const list &l)
     {
         stream << "[ ";

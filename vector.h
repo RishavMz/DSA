@@ -7,6 +7,13 @@
 #define INCLUDED_VECTOR "Included vector.h"
 #endif
 
+#ifndef HASHER
+#define A 54059 /* a prime */
+#define B 76963 /* another prime */
+#define C 86969 /* yet another prime */
+#define HASHER 37
+#endif
+
 template <typename T>
 class vector
 {
@@ -40,7 +47,7 @@ public:
             size--;
         else
         {
-            std::cout<<"ERROR : Cannot delete from an empty vector"<<std::endl;
+            std::cout << "ERROR : Cannot delete from an empty vector" << std::endl;
             exit(0);
         }
     }
@@ -49,8 +56,9 @@ public:
     {
         if (index < size)
             return arr[index];
-        else{
-            std::cout<<"ERROR : Given inex exceeds current size of vector"<<std::endl;
+        else
+        {
+            std::cout << "ERROR : Given inex exceeds current size of vector" << std::endl;
             exit(0);
         }
     }
@@ -65,7 +73,7 @@ public:
         }
         else
         {
-            std::cout<<"ERROR : Given index exceeds current size of vector"<<std::endl;
+            std::cout << "ERROR : Given index exceeds current size of vector" << std::endl;
             exit(0);
         }
     }
@@ -137,13 +145,29 @@ public:
         return size;
     }
 
+    unsigned int hash()
+    {
+        std::string temp;
+        temp += "[ ";
+        for (int i = 0; i < size - 1; i++)
+            temp += arr[i] + ", ";
+        temp += arr[size - 1];
+        temp += " ]";
+        unsigned int hashed = HASHER;
+        for (int i = 0; i < temp.size(); i++)
+        {
+            hashed = (hashed * A) ^ (temp[0] * B);
+        }
+        return hashed;
+    }
+
     friend std::ostream &operator<<(std::ostream &stream, const vector &v)
     {
         stream << "[ ";
         for (int i = 0; i < v.size - 1; i++)
             stream << v.arr[i] << ", ";
         stream << v.arr[v.size - 1];
-        stream << " ]\n";
+        stream << " ]";
         return stream;
     }
 };

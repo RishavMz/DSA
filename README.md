@@ -4,7 +4,7 @@
 - [x] singly linked list
 - [x] doubly linked list
 - [x] stack
-- [ ] queue
+- [x] queue
 - [ ] deque
 - [ ] hashset
 - [ ] hashmap
